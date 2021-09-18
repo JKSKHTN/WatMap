@@ -19,7 +19,7 @@ export default function Navigation() {
 					<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 					<Navbar.Collapse id="responsive-navbar-nav">
 						<Nav className="me-auto">
-							<Link to="/" className="nav-link"> Home </Link>
+							<Link to="/home" className="nav-link"> Home </Link>
 							{currentUser ?
 								<> <Link to="/dashboard" className="nav-link">Dashboard</Link> </> :
 								<> <Link to="/signup" className="nav-link">Signup</Link>

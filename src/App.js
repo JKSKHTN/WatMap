@@ -8,7 +8,7 @@ import SignUp from "./pages/SignUp"
 import Dashboard from './pages/Dashboard'
 import Login from "./pages/LogIn"
 import PrivateRoute from "./PrivateRoute";
-
+import Landing from "./pages/Landing"
 import {AuthProvider} from "./contexts/AuthContext"
 
 
@@ -22,7 +22,7 @@ function App() {
       <header className="App-header">
         <AuthProvider>
         <Router>
-          <Home path="/" />
+          <Landing path="/" />
           <Home path="/home" />
           <SignUp path="signup" />
           <Login path="login" />

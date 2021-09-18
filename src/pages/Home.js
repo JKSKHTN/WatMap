@@ -18,7 +18,7 @@ export default function Home() {
 			{/* <LogOut></LogOut> */}
 			{/* Home page */}
 
-			<MapContainer showModal={(lat, lng) => { setShowAddServiceModal(true) }}></MapContainer>
+			<MapContainer ></MapContainer>
 		</div>
 	)
 }

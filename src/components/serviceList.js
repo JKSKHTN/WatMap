@@ -9,11 +9,10 @@ import { useAuth } from "../contexts/AuthContext.js";
 import { navigate } from "@reach/router"
 
 
-export default function ListServiceForm() {
+export default function ListServiceForm({location}) {
     const serviceName = useRef();
     const serviceDescription = useRef();
     const images = useRef();
-    // const location = useRef();
     const serviceRef = firebase.firestore().collection("listings")
     var storageRef = firebase.storage();
     const {currentUser} = useAuth()
@@ -32,25 +31,29 @@ export default function ListServiceForm() {
         serviceRef.doc(ID).set({
             title: serviceName.current.value,
             description: serviceDescription.current.value,
-            // location: location.current.value,
+            location: location,
             owner: currentUser.uid,
-            photosRef: '',
+            // photosRef: '',
         }).then(() => {
             if (images.current.files.length > 0) {
-                images.current.files.map((file, index) => {
-                    const picRef = storageRef.ref().child(`${ID}/${ID}${index}.png`);
-                    picRef.put(images.current.files[0]).then((snapshot) => {
-                        console.log("Uploaded a pic!");
-                        storageRef.ref(`${ID}/${ID}.png`).getDownloadURL().then((URL) => {
-                            urls.push(URL)
-                        })
-                    });
-                })
+                for (const file in images.current.files) {
+                // images.current.files.map((file, index) => {
+                    if(file !== 'item' && file !== 'length') {
+                        const picRef = storageRef.ref().child(`${ID}/${ID}${file}.png`);
+                        picRef.put(images.current.files[file]).then((snapshot) => {
+                            console.log("Uploaded a pic!");
+                            storageRef.ref(`${ID}/${ID}${file}.png`).getDownloadURL().then((URL) => {
+                                urls.push(URL)
+                            })
+                        });
+                    }
+                // })
+                }
             }
         }).then(() => {
-            serviceRef.doc(ID).update({
-                photosRef: urls
-            })
+            // serviceRef.doc(ID).update({
+            //     photosRef: urls
+            // })
             
         })
     }
@@ -68,7 +71,7 @@ export default function ListServiceForm() {
         <div className="mt-1 mx-3">
             <Form onSubmit={handleService}>
             <Form.Group id="ServiceName" className="mb-3 form-floating">
-                <Form.Control onChange={handleTitle} type="text" ref={serviceName} className="form-control" placeholder="Service Name" id="InputServiceName" aria-describedby="service name" />
+                <Form.Control onChange={handleTitle} type="text" ref={serviceName} className="form-control" placeholder="Service Name" id="InputServiceName" aria-describedby="service name" required/>
                 <Form.Label for="InputServiceName" className="form-label floatingInput">
                   Service Name
                 </Form.Label>
@@ -77,14 +80,14 @@ export default function ListServiceForm() {
                 <Form.Control as="textarea"
                   style={{
                     height: "200px",
-                  }} type="text" ref={serviceDescription} className="form-control" placeholder="Service Description" id="InputServiceDescription" aria-describedby="service description" />
+                  }} type="text" ref={serviceDescription} className="form-control" placeholder="Service Description" id="InputServiceDescription" aria-describedby="service description" required/>
                 <Form.Label for="InputServiceDescription" className="form-label floatingInput">
                   Service Description
                 </Form.Label>
               </Form.Group>
             <Form.Group controlId="formFileMultiple" className="mb-3">
                 <Form.Label>Upload photos of your service!</Form.Label>
-                <Form.Control ref={images} type="file" multiple />
+                <Form.Control ref={images} type="file" multiple required/>
             </Form.Group>
             <Button type="submit">Submit</Button>
             </Form>

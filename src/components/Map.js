@@ -3,11 +3,17 @@ import { Button, Container, Col, Row, Modal } from "react-bootstrap"
 import GoogleMapReact from 'google-map-react';
 import Sidebar from './Sidebar';
 import ListServiceForm from "../components/serviceList"
+import firebase from 'firebase/app';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
+export async function getServices() {
+  const snapshot = await firebase.firestore().collection('listings').get()
+  return snapshot.docs.map(doc => doc.data());
+}
+
 export default function MapContainer() {
-	const [showAddServiceModal, setShowAddServiceModal] = useState(false);
+  const [showAddServiceModal, setShowAddServiceModal] = useState(false);
   const [locationClicked, setLocationClicked] = useState(null)
 
   const defaultProps = {
@@ -19,12 +25,16 @@ export default function MapContainer() {
     zoom: 14,
     minZoom: 13.5,
     restriction: {
-      north: ;
-      south: ;
-      west: ;
-      east: ;
+      latLngBounds: {
+      north: 43.524162,
+      south: 43.392919,
+      west: -80.620541,
+      east: -80.381183
+      }
     }
   };
+
+
 
   return (
 
@@ -42,7 +52,7 @@ export default function MapContainer() {
               bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_API_KEY }}
               defaultCenter={defaultProps.center}
               defaultZoom={defaultProps.zoom}
-              onClick={(e) => {setLocationClicked({lat: e.lat, lng: e.lng}); setShowAddServiceModal(true);}}
+              onClick={(e) => { setLocationClicked({ lat: e.lat, lng: e.lng }); setShowAddServiceModal(true); }}
             >
               <MapPin
                 lat={43.472449}
@@ -54,11 +64,17 @@ export default function MapContainer() {
         </Row>
       </Container>
 
-      <AddServiceModal show={showAddServiceModal} location={locationClicked} handleClose={() => setShowAddServiceModal(false)} />
+      <AddServiceModal show={showAddServiceModal} location={locationClicked} handleClose={() => setShowAddServiceModal(false)} centerMap={CenterMap} />
     </div>
   );
 
 }
+
+
+function CenterMap(location) {
+  // TEMP
+}
+
 
 function MapPin() {
   return (<>
@@ -86,14 +102,14 @@ function MapPin() {
 // <Button variant="primary" className="plus-button" onClick={this.props.showModal}>+</Button>
 
 
-function AddServiceModal({ show, handleClose }) {
+function AddServiceModal({ show, handleClose, location }) {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Add a new service</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <ListServiceForm closeModal={handleClose} />
+        <ListServiceForm closeModal={handleClose} location={location} />
 
       </Modal.Body>
       {/* <Modal.Footer>

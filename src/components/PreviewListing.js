@@ -1,7 +1,15 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Carousel, Image} from "react-bootstrap";
 
 export default function PreviewList() {
+    function getListing() {
+        console.log('getting')
+    }
+
+    useEffect(() => {
+		getListing();
+	}, []);
+
 	return (
 		<div>
             <Carousel>
