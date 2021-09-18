@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from 'react';
 import { Button, Container, Col, Row, Modal, Spinner } from "react-bootstrap"
-import GoogleMapReact from 'google-map-react';
+import GoogleMapReact  from 'google-map-react';
 import Sidebar from './Sidebar';
 import ListServiceForm from "../components/serviceList"
 import firebase from 'firebase/app';
@@ -9,7 +9,12 @@ const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 export async function getServices() {
   const snapshot = await firebase.firestore().collection('listings').get()
-  return snapshot.docs.map(doc => doc.data());
+  return snapshot.docs.map(doc => {
+    let object  = doc.data()
+    object.id = doc.id;
+    console.log(object);
+    return object;
+  });
 }
 
 export default function MapContainer() {
@@ -23,10 +28,6 @@ export default function MapContainer() {
   });
 
   const defaultProps = {
-    center: {
-      lat: 43.47244938593337,
-      lng: -80.54500110716826
-    },
     //bounds: { nw, se, sw... },
     zoom: 14
     
@@ -65,7 +66,7 @@ export default function MapContainer() {
               onClick={(e) => { setLocationClicked({ lat: e.lat, lng: e.lng }); setShowAddServiceModal(true); }}
               key={JSON.stringify(centerLocation)}
               options={{
-                minZoom: 13,
+                minZoom: 2,
                 maxZoom: 15,
                   restriction: {
                     latLngBounds:{
@@ -82,9 +83,10 @@ export default function MapContainer() {
               {services.map((service) => {
                 return (
                   <MapPin
+                    title={service.title}
+                    service={service}
                     lat={service.location.lat}
                     lng={service.location.lng}
-                    title={service.title}
                   />
                 );
               })}
@@ -105,9 +107,10 @@ function CenterMap(location) {
 }
 
 
-function MapPin({ title }) {
+function MapPin({ title, service}) {
   return (<>
-    <Button variant="light">{title}</Button>
+    <div class='pin'></div>
+    {/* <Button variant="light">{title}</Button> */}
   </>);
 }
 /* <MapWithASearchBox /> */
