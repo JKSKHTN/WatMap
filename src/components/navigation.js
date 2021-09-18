@@ -21,7 +21,7 @@ export default function Navigation() {
 						<Nav className="me-auto">
 							<Link to="/" className="nav-link"> Home </Link>
 							{currentUser ?
-								<Link to="/dashboard" className="nav-link">Dashboard</Link> :
+								<> <Link to="/dashboard" className="nav-link">Dashboard</Link> </> :
 								<> <Link to="/signup" className="nav-link">Signup</Link>
 								<Link to="/login" className="nav-link">Login</Link> </>}
 						</Nav>

@@ -63,7 +63,7 @@ export default function LogIn() {
 	return (
 		<div>
 			<Navigation />
-			<h1>Log In</h1>
+			<h1 className="text-center mt-5">Log In</h1>
 			
 			{currentUser ?
 				<Logout /> :

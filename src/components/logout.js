@@ -10,7 +10,7 @@ export default function Logout() {
     async function handleLogout() {
         try {
             await logout();
-            navigate("/home")
+            navigate("/login")
         } catch {
             console.log("err")
         }

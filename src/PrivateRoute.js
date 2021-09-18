@@ -6,5 +6,6 @@ export default function CheckAuth() {
     const { currentUser } = useAuth()
     if(!currentUser){
         navigate("/signup")
+        return false;
     }
 }

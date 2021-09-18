@@ -24,7 +24,7 @@ const uiConfig = {
 	// 		// Additional state showPromo=1234 can be retrieved from URL on
 	// 		// sign-in completion in signInSuccess callback by checking
 	// 		// window.location.href.
-	// 		// url: 'https://www.example.com/completeSignIn?showPromo=1234',
+	// 		// url: ihttps://www.example.com/completeSignIn?showPromo=1234',
 	// 		// Custom FDL domain.
 	// 		// dynamicLinkDomain: 'example.page.link',
 	// 		// Always true for email link sign-in.
@@ -63,7 +63,7 @@ export default function SignUp() {
 	return (
 		<div>
 			<Navigation />
-			<h1>Sign up</h1>
+			<h1 className="text-center mt-5">Sign up</h1>
 			
 			{currentUser ?
 				<LogOut /> :

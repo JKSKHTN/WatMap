@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.plus-button{
+  position: absolute;
+  z-index: 100;
+  left: 5px;
+  bottom: 5px;
+  border-radius: 50px
+}

@@ -112,7 +112,6 @@ export default function LogInForm() {
                         </Form.Label>
                     </Form.Group>
                     <Button
-                        bsPrefix="button-sh"
                         className="auth-btn"
                         type="submit"
                         disabled={loading}
