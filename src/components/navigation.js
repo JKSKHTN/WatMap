@@ -4,6 +4,8 @@ import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
 
 import { Router, Link } from "@reach/router"
 
+import {useAuth} from "../contexts/AuthContext"
+
 let navbarpages = [
 	{
 		name: "Home",

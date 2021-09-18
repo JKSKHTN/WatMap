@@ -7,8 +7,8 @@ export default function Dashboard() {
 
 	return (
 		<div>
-			Welcome!
 			<Navigation></Navigation>
+			Welcome!
 			
 		</div>
 	)

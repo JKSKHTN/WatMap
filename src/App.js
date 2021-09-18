@@ -20,6 +20,7 @@ function App() {
         <AuthProvider>
         <Router>
           <Home path="/" />
+          <Home path="/home" />
           <SignUp path="signup" />
           <Dashboard path="dashboard" />
         </Router>
