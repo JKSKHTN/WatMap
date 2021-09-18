@@ -26,7 +26,7 @@ export default function Sidebar({ centerMap }) {
 			<>
 				{services.map((service) => {
 					return (
-						<IndividualServiceListing name={service.Title} description="testing best barber sho" centerMap={centerMap} />
+						<IndividualServiceListing name={service.title} description={service.description} centerMap={centerMap} />
 					);
 				})}
 			</>
@@ -39,15 +39,16 @@ export default function Sidebar({ centerMap }) {
 
 function IndividualServiceListing({ name, description, centerMap }) {
 	return (
-		<Card >
-			{/* <Card.Body onClick={() => centerMap({lat: 11, lng: 22})}> */}
-			<Card.Body onClick={() => centerMap({ lat: 11, lng: 22 })}>
+		<Card onClick={() => { console.log("test"); centerMap({ lat: 0, lng: 0 }) }}>
+			<Card.Body>
 				<Card.Title>{name}</Card.Title>
-
-				<Card.Text>{description}</Card.Text>
-
+				<Card.Text>
+					{description}
+				</Card.Text>
 			</Card.Body>
-		</Card>);
+		</Card>
+
+	);
 }
 
 

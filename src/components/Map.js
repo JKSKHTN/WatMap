@@ -1,5 +1,5 @@
-import React, { Component, useState } from 'react';
-import { Button, Container, Col, Row, Modal } from "react-bootstrap"
+import React, { Component, useState, useEffect } from 'react';
+import { Button, Container, Col, Row, Modal, Spinner } from "react-bootstrap"
 import GoogleMapReact from 'google-map-react';
 import Sidebar from './Sidebar';
 import ListServiceForm from "../components/serviceList"
@@ -15,6 +15,12 @@ export async function getServices() {
 export default function MapContainer() {
   const [showAddServiceModal, setShowAddServiceModal] = useState(false);
   const [locationClicked, setLocationClicked] = useState(null)
+  const [services, setServices] = useState(null)
+
+  const [centerLocation, setCenterLocation] = useState({
+    lat: 43.47244938593337,
+    lng: -80.54500110716826
+  });
 
   const defaultProps = {
     center: {
@@ -24,18 +30,30 @@ export default function MapContainer() {
     //bounds: { nw, se, sw... },
     zoom: 14,
     minZoom: 13.5,
-    restriction: {
-      latLngBounds: {
-      north: 43.524162,
-      south: 43.392919,
-      west: -80.620541,
-      east: -80.381183
+    options: {
+      restriction: {
+        north: 43.524162,
+        south: 43.392919,
+        west: -80.620541,
+        east: -80.381183
       }
     }
   };
 
 
 
+  useEffect(async () => {
+    let services = await getServices();
+    console.log(services);
+    setServices(services);
+  }, [])
+
+  if (!services) {
+    return (<><Spinner animation="border" /> </>);
+  }
+  console.log(services);
+
+  console.log(centerLocation)
   return (
 
     // Important! Always set the container height explicitly
@@ -44,27 +62,33 @@ export default function MapContainer() {
       <Container style={{ height: "100%" }}>
         <Row>
           <Col sm={2}>
-            <Sidebar />
+            <Sidebar  centerMap={setCenterLocation} />
           </Col>
 
           <Col sm={10}>
             <GoogleMapReact
               bootstrapURLKeys={{ key: process.env.REACT_APP_MAPS_API_KEY }}
-              defaultCenter={defaultProps.center}
+              defaultCenter={centerLocation}
               defaultZoom={defaultProps.zoom}
               onClick={(e) => { setLocationClicked({ lat: e.lat, lng: e.lng }); setShowAddServiceModal(true); }}
+              key={JSON.stringify(centerLocation)}
             >
-              <MapPin
-                lat={43.472449}
-                lng={-80.54500}
-                text="My Marker"
-              />
+
+              {services.map((service) => {
+                return (
+                  <MapPin
+                    lat={service.location.lat}
+                    lng={service.location.lng}
+                    title={service.title}
+                  />
+                );
+              })}
             </GoogleMapReact>
           </Col>
         </Row>
       </Container>
 
-      <AddServiceModal show={showAddServiceModal} location={locationClicked} handleClose={() => setShowAddServiceModal(false)} centerMap={CenterMap} />
+      <AddServiceModal show={showAddServiceModal} location={locationClicked} handleClose={() => setShowAddServiceModal(false)} />
     </div>
   );
 
@@ -76,9 +100,9 @@ function CenterMap(location) {
 }
 
 
-function MapPin() {
+function MapPin({ title }) {
   return (<>
-    <Button variant="light">Barber Shop</Button>
+    <Button variant="light">{title}</Button>
   </>);
 }
 /* <MapWithASearchBox /> */

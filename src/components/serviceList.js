@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import Navigation from './Navigation'
-import { Form, Button, Container, Alert } from "react-bootstrap";
+import { Form, Button, Container, Alert, Spinner } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LogOut from './Logout';
 import firebase from "firebase/app";
@@ -9,7 +9,7 @@ import { useAuth } from "../contexts/AuthContext.js";
 import { navigate } from "@reach/router"
 
 
-export default function ListServiceForm({location}) {
+export default function ListServiceForm({location, closeModal}) {
     const serviceName = useRef();
     const serviceDescription = useRef();
     const images = useRef();
@@ -50,7 +50,11 @@ export default function ListServiceForm({location}) {
                 // })
                 }
             }
+
+
         }).then(() => {
+            setLoading(true);
+            window.location.reload();
             // serviceRef.doc(ID).update({
             //     photosRef: urls
             // })
@@ -64,7 +68,7 @@ export default function ListServiceForm({location}) {
     };
 
     if(loading) {
-        return <h1>Loading</h1>
+        return (<><Spinner animation="border" /> </>)
     }
 
     return (

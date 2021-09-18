@@ -1,0 +1,31 @@
+.landingpage-maincol {
+    width: 100%;
+    text-align: center;
+    margin-top: 200px;
+}
+
+.landingpage-text {
+    font-size: 80px;
+    font-family: verdana;
+}
+
+.landingpage-buttonrow {
+    text-align: center;
+    width: 100%;
+}
+
+.landingpage-button {
+    display: inline-block;
+    vertical-align: center;
+    height: 80px;
+    width: 150px;
+    border-radius: 50px;
+    font-size: 25px;
+    color: white;
+    font-weight: bold;
+    border: 2px solid white;
+    background: #FFD880;
+    background: -moz-linear-gradient(left, #FFD880 0%, #FF77A0 50%, #1DC5CD 100%);
+    background: -webkit-linear-gradient(left, #FFD880 0%, #FF77A0 50%, #1DC5CD 100%);
+    background: linear-gradient(to right, #FFD880 0%, #FF77A0 50%, #1DC5CD 100%);
+}

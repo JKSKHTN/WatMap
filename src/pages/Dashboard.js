@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Navigation from '../components/Navigation'
 import CheckAuth from '../PrivateRoute'
 import Profile from '../components/Profile.js';
-import ListServiceForm from '../components/serviceList.js';
+import PreviewList from '../components/PreviewListing.js';
 import firebase from "firebase/app";
 import { useAuth } from "../contexts/AuthContext.js"
 
@@ -57,7 +57,7 @@ export default function Dashboard() {
 		<div>
 			<Navigation></Navigation>
 			<Profile />
-			<ListServiceForm />
+			<PreviewList />
 		</div>
 	)
 }
