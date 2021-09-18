@@ -3,8 +3,8 @@ import firebase from "firebase/app";
 import { useAuth } from "../contexts/AuthContext.js";
 import Navigation from '../components/Navigation.js';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import LogOut from '../components/Logout.js';
-import SignUpForm from '../components/Signupform'
+import Logout from '../components/Logout.js';
+import LogInForm from '../components/Loginform'
 
 const uiConfig = {
 	// Popup signin flow rather than redirect flow.
@@ -43,7 +43,7 @@ const uiConfig = {
 	// 	};
 };
 
-export default function SignUp() {
+export default function LogIn() {
 	let userRef = firebase.firestore().collection("users");
 	let { currentUser } = useAuth();
 	const [data, setData] = useState('')
@@ -63,12 +63,13 @@ export default function SignUp() {
 	return (
 		<div>
 			<Navigation />
-			<h1>Sign up</h1>
+			<h1>Log In</h1>
 			
 			{currentUser ?
-				<LogOut /> :
-				<SignUpForm />
+				<Logout /> :
+				<LogInForm />
 			}
+
 				{/* <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} /> */}
 		</div>
 	)

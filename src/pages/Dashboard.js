@@ -1,6 +1,7 @@
 import React from 'react'
-import Navigation from '../components/navigation'
+import Navigation from '../components/Navigation'
 import CheckAuth from '../PrivateRoute'
+import Profile from '../components/Profile';
 
 export default function Dashboard() {
 	CheckAuth();
@@ -8,7 +9,8 @@ export default function Dashboard() {
 	return (
 		<div>
 			<Navigation></Navigation>
-			Welcome!
+			<Profile></Profile>
+
 			
 		</div>
 	)

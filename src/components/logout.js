@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import {useAuth} from "../contexts/AuthContext.js"
 import { navigate } from "@reach/router"
 
-export default function LogOut() {
+export default function Logout() {
     const { logout } = useAuth()
 
     async function handleLogout() {
