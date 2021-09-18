@@ -1,9 +1,9 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect} from 'react'
 import CheckAuth from '../PrivateRoute';
 import firebase from "firebase/app";
 import { useAuth } from '../contexts/AuthContext';
 import { APP_NAME } from "../constants";
-import { Form, Button, Container, Alert , Spinner, Card} from "react-bootstrap";
+import { Form, Button, Container, Alert, Spinner, Card } from "react-bootstrap";
 import { getServices } from './Map';
 
 export default function Profile() {
@@ -18,13 +18,13 @@ export default function Profile() {
 
 	const [inEditMode, setInEditMode] = useState(true);
 
-  const [services, setServices] = useState(null)
+	const [services, setServices] = useState(null)
 
-  useEffect(async () => {
-    let services = await getServices();
-		services = services.filter(service => {console.log(service.owner, currentUser.uid); return true; });
-    setServices(services);
-  }, [])
+	useEffect(async () => {
+		let services = await getServices();
+		services = services.filter(service => service.owner === currentUser.uid);
+		setServices(services);
+	}, [])
 
 	useEffect(() => {
 		if (currentUser && currentUser.displayName) {
@@ -50,7 +50,7 @@ export default function Profile() {
 		console.log(name);
 	}
 
-	
+
 
 	// await getServices();
 
@@ -61,10 +61,14 @@ export default function Profile() {
 				{!inEditMode ?
 
 					<div>
-						<h2> Welcome {currentUser.displayName} </h2>
-						<Button onClick={() => { setInEditMode(true) }}> Update Profile Info</Button>
-						{services && services.map((service => <IndividualProfileServiceListing service={service}/>))}
+						<Container>
+							<h2> Welcome {currentUser.displayName} </h2>
+							<Button onClick={() => { setInEditMode(true) }}> Update Profile Info</Button>
+							<h2> Your Services </h2>
 
+							{services && services.map((service => <IndividualProfileServiceListing service={service} />))}
+
+						</Container>
 					</div> :
 
 					<>

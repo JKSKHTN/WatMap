@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import {Carousel, Image} from "react-bootstrap";
+import {Carousel, Image, Spinner} from "react-bootstrap";
 import firebase from "firebase/app";
 
 export default function PreviewList() {
     const listingRef = firebase.firestore().collection("listings")
     const [info, setInfo] = useState()
     const [docid, setDocid] = useState()
-    const [pics, setPics] = useState()
+    const [pics, setPics] = useState([])
     const [loading, setLoading] = useState()
     var storageRef = firebase.storage();
 
@@ -30,16 +30,16 @@ export default function PreviewList() {
             storageRef.ref().child(`${docid}/${docid}${index}.png`).getDownloadURL()
             .then((URL) => {
               pictures.push(URL)
-            }) 
-            setPics(pictures)
+              setPics(pictures)
 
+
+            }) 
             setLoading(false)
 
           });
           setLoading(false)
 
         })
-        setLoading(false)
 
       // Find all the prefixes and items.
       
@@ -47,6 +47,8 @@ export default function PreviewList() {
         }).catch((error) => {
           // Uh-oh, an error occurred!
         });
+        setLoading(false)
+
     }
 
     useEffect(() => {
@@ -54,7 +56,7 @@ export default function PreviewList() {
 	}, []);
 
   if(loading) {
-    return <h1>Loading...</h1>
+    return (<><Spinner animation="border" /> </>);
   }
 
 	return (
@@ -72,6 +74,9 @@ export default function PreviewList() {
             </Carousel>
 			      <h1>{info.title}</h1>
             <p>{info.description}</p>
+            {pics.map((p) => {
+              console.log(p)
+            })}
             </>
           }
 		</div>
