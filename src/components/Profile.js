@@ -3,7 +3,8 @@ import CheckAuth from '../PrivateRoute';
 import firebase from "firebase/app";
 import { useAuth } from '../contexts/AuthContext';
 import { APP_NAME } from "../constants";
-import { Form, Button, Container, Alert , Spinner} from "react-bootstrap";
+import { Form, Button, Container, Alert , Spinner, Card} from "react-bootstrap";
+import { getServices } from './Map';
 
 export default function Profile() {
 	// if(!CheckAuth()){
@@ -17,6 +18,13 @@ export default function Profile() {
 
 	const [inEditMode, setInEditMode] = useState(true);
 
+  const [services, setServices] = useState(null)
+
+  useEffect(async () => {
+    let services = await getServices();
+		services = services.filter(service => {console.log(service.owner, currentUser.uid); return true; });
+    setServices(services);
+  }, [])
 
 	useEffect(() => {
 		if (currentUser && currentUser.displayName) {
@@ -42,6 +50,10 @@ export default function Profile() {
 		console.log(name);
 	}
 
+	
+
+	// await getServices();
+
 	if (currentUser && !loading) {
 
 		return (
@@ -51,6 +63,8 @@ export default function Profile() {
 					<div>
 						<h2> Welcome {currentUser.displayName} </h2>
 						<Button onClick={() => { setInEditMode(true) }}> Update Profile Info</Button>
+						{services && services.map((service => <IndividualProfileServiceListing service={service}/>))}
+
 					</div> :
 
 					<>
@@ -63,4 +77,18 @@ export default function Profile() {
 		)
 	}
 	return (<><Spinner animation="border" /> </>);
+}
+
+function IndividualProfileServiceListing({ service }) {
+	return (
+		<Card >
+			<Card.Body>
+				<Card.Title>{service.title}</Card.Title>
+				<Card.Text>
+					{service.description}
+				</Card.Text>
+			</Card.Body>
+		</Card>
+
+	);
 }

@@ -28,16 +28,8 @@ export default function MapContainer() {
       lng: -80.54500110716826
     },
     //bounds: { nw, se, sw... },
-    zoom: 14,
-    minZoom: 13.5,
-    options: {
-      restriction: {
-        north: 43.524162,
-        south: 43.392919,
-        west: -80.620541,
-        east: -80.381183
-      }
-    }
+    zoom: 14
+    
   };
 
 
@@ -72,6 +64,19 @@ export default function MapContainer() {
               defaultZoom={defaultProps.zoom}
               onClick={(e) => { setLocationClicked({ lat: e.lat, lng: e.lng }); setShowAddServiceModal(true); }}
               key={JSON.stringify(centerLocation)}
+              options={{
+                minZoom: 13,
+                maxZoom: 15,
+                  restriction: {
+                    latLngBounds:{
+                    north: 43.524162,
+                    south: 43.392919,
+                    west: -80.620541,
+                    east: -80.381183
+                    },
+                    strictBounds: true
+                  }
+              }}
             >
 
               {services.map((service) => {
