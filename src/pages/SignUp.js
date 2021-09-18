@@ -5,6 +5,7 @@ import Navigation from '../components/Navigation.js';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import LogOut from '../components/Logout.js';
 import SignUpForm from '../components/Signupform'
+import { Link } from "@reach/router"
 
 const uiConfig = {
 	// Popup signin flow rather than redirect flow.
@@ -69,6 +70,7 @@ export default function SignUp() {
 				<LogOut /> :
 				<SignUpForm />
 			}
+			<p className="text-center">Already have an account? <Link to="/login">Log in here!</Link></p>
 				{/* <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} /> */}
 		</div>
 	)

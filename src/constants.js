@@ -1,1 +1,1 @@
-export const APP_NAME = "TEMPHTNAPPNAME";
+export const APP_NAME = "WatMap";

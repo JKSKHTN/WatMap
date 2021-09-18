@@ -13,118 +13,98 @@ export default function PreviewList() {
 
   var storageRef = firebase.storage();
 
-  // function getListing() {
-  //   setLoading(true)
-  //   const pictures = [];
-  //   listingRef.doc('manicures-zNC0wN').get().then((doc) => {
-  //     setInfo(doc.data())
-  //     storageRef.ref().child(doc.id).listAll()
-  //       .then((res) => {
-  //         res.items.forEach((itemRef, index) => {
-
-  //           storageRef.ref().child(`${doc.id}/${doc.id}${index}.png`).getDownloadURL()
-  //             .then((URL) => {
-  //               pictures.push(URL)
-  //               //setPics(pictures)
-  //               // setPics(pictures + [URL])
-  //             }).then(() => {
-  //               console.log('end')
-  //               console.log(pictures)
-  //               setPics(pictures)
-  //             })
-  //         });
-  //       })
-  //   }).then(() => {
-  //     // storageRef.ref().child(docid).listAll()
-  //     //   .then((res) => {
-  //     //     res.items.forEach((itemRef, index) => {
-
-  //     //       storageRef.ref().child(`${docid}/${docid}${index}.png`).getDownloadURL()
-  //     //         .then((URL) => {
-  //     //           pictures.push(URL)
-  //     //           console.log(URL)
-  //     //         })
-  //     //     });
-  //     //   })
-  //   }).catch((error) => {
-  //     console.log(error);
-  //     // Uh-oh, an error occurred!
-  //   });
-  //   setLoading(false)
-  // }
-
-  useEffect(() => {
-    getListing();
-  }, [currentUser]);
-
-  if (loading) {
-    return (<><Spinner animation="border" /> </>);
+  async function getListing() {
+    setLoading(true)
+    const pictures = [];
+    let doc = await listingRef.doc('manicures-zNC0wN').get();
+    setInfo(doc.data())
+    let resListAll = await storageRef.ref().child(doc.id).listAll();
+    let index = 0
+    for (const itemRef of resListAll.items) {
+      let downloadURL = await storageRef.ref().child(`${doc.id}/${doc.id}${index}.png`).getDownloadURL();
+      pictures.push(downloadURL);
+      index += 1;
+    }
+    setPics(pictures);
+    setLoading(false)
   }
 
-  console.log("pics are", pics);
 
-  // return (
+useEffect(() => {
+  getListing();
+}, [currentUser]);
 
-  //   <Card>
-  //     <Card.Img variant="top" src="holder.js/100px180" />
-  //     <Card.Body>
-  //       <Card.Title>Card Title</Card.Title>
-  //       <Card.Text>
-  //         Some quick example text to build on the card title and make up the bulk of
-  //         the card's content.
-  //       </Card.Text>
-  //       <Button variant="primary">Go somewhere</Button>
-  //     </Card.Body>
-  //   </Card>
-  // );
-  if(!pics){
-    return (<Spinner animation="border" />);
-  }
+if (loading) {
+  return (<><Spinner animation="border" /> </>);
+}
 
-  return (
-    <>
-      <Carousel>
-        {pics.map((pic) => {
-          {console.log("FOUMND PI", pic)}
-          return (<Carousel.Item>
-            <img
-              className="d-block w-100"
-              src={pic}
-              alt="First slide"
-            />
-           </Carousel.Item>)
-        })}
-      </Carousel>
+console.log("pics are", pics);
 
-    </>
+// return (
 
-  );
+//   <Card>
+//     <Card.Img variant="top" src="holder.js/100px180" />
+//     <Card.Body>
+//       <Card.Title>Card Title</Card.Title>
+//       <Card.Text>
+//         Some quick example text to build on the card title and make up the bulk of
+//         the card's content.
+//       </Card.Text>
+//       <Button variant="primary">Go somewhere</Button>
+//     </Card.Body>
+//   </Card>
+// );
+if (!pics) {
+  return (<Spinner animation="border" />);
+}
 
-  return (
-    <Card>
-      <div>{info && <>
-        <Carousel>
-          {pics && pics.map((p) => {
-            <Carousel.Item>
-              <img
-                className="d-block w-100"
-                src={p}
-                alt="First slide"
-              />
-            </Carousel.Item>
+return (
+  <>
+  <Card>
+    <Carousel>
+      {pics.map((pic) => {
+        { console.log("FOUMND PI", pic) }
+        return (<Carousel.Item>
+          <img
+            className="d-block w-100"
+            src={pic}
+            alt="First slide"
+          />
+        </Carousel.Item>)
+      })}
+    </Carousel>
+           <h1>{info.title}</h1>
+     <p>{info.description}</p>
+  </Card>
+  </>
 
-          })}
-        </Carousel>
-        <h1>{info.title}</h1>
-        <p>{info.description}</p>
-        {pics && pics.map((p) => {
-          return (<p>
-            {p}
-          </p>)
-        })}
-      </>
-      }
-      </div>
-    </Card>
-  )
+);
+
+// return (
+//   <Card>
+//     <div>{info && <>
+//       <Carousel>
+//         {pics && pics.map((p) => {
+//           <Carousel.Item>
+//             <img
+//               className="d-block w-100"
+//               src={p}
+//               alt="First slide"
+//             />
+//           </Carousel.Item>
+
+//         })}
+//       </Carousel>
+//       <h1>{info.title}</h1>
+//       <p>{info.description}</p>
+//       {pics && pics.map((p) => {
+//         return (<p>
+//           {p}
+//         </p>)
+//       })}
+//     </>
+//     }
+//     </div>
+//   </Card>
+// )
 }

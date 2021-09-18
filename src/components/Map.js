@@ -66,8 +66,7 @@ export default function MapContainer() {
               onClick={(e) => { setLocationClicked({ lat: e.lat, lng: e.lng }); setShowAddServiceModal(true); }}
               key={JSON.stringify(centerLocation)}
               options={{
-                minZoom: 2,
-                maxZoom: 15,
+                maxZoom: 50,
                   restriction: {
                     latLngBounds:{
                     north: 43.524162,
