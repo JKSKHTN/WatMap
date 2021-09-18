@@ -13,57 +13,63 @@ export default function ListServiceForm() {
     const serviceName = useRef();
     const serviceDescription = useRef();
     const images = useRef();
-    const location = useRef();
+    // const location = useRef();
     const serviceRef = firebase.firestore().collection("listings")
-    var storageRef = firebase.storage().ref();
+    var storageRef = firebase.storage();
     const {currentUser} = useAuth()
     const [URLFunc, setURLFunc] = useState()
+    const [loading, setLoading] = useState()
     const [ID, setID] = useState()
+    var dayjs = require("dayjs");
 
-    function handleService() {
+    var customParseFormat = require("dayjs/plugin/customParseFormat");
+    dayjs.extend(customParseFormat);
+
+    function handleService(e) {
+        e.preventDefault();
+        console.log(images)
+        const urls = []
         serviceRef.doc(ID).set({
             title: serviceName.current.value,
             description: serviceDescription.current.value,
-            location: location.current.value,
+            // location: location.current.value,
             owner: currentUser.uid,
             photosRef: '',
         }).then(() => {
             if (images.current.files.length > 0) {
-                const picRef = storageRef.child(`${ID}/${ID}.png`);
-                picRef.put(images.current.files[0]).then((snapshot) => {
-                    console.log("Uploaded a pic!");
-                });
+                images.current.files.map((file, index) => {
+                    const picRef = storageRef.ref().child(`${ID}/${ID}${index}.png`);
+                    picRef.put(images.current.files[0]).then((snapshot) => {
+                        console.log("Uploaded a pic!");
+                        storageRef.ref(`${ID}/${ID}.png`).getDownloadURL().then((URL) => {
+                            urls.push(URL)
+                        })
+                    });
+                })
             }
         }).then(() => {
-            var coverRef = storageRef.ref(`${ID}/${ID}.png`);
-            coverRef
-              .getDownloadURL()
-              .then((URL) => {
-                setURLFunc(URL);
-              })
-              .then(() => {
-              });
             serviceRef.doc(ID).update({
-                photosRef: ''
+                photosRef: urls
             })
+            
         })
     }
 
     const handleTitle = (e) => {
+        console.log(images)
         setID(e.target.value.replace(/ /g, "-").toLowerCase() + "-" + btoa(dayjs().format()).substring(23, 29));
     };
 
-    function handleSubmit() {
-        console.log("submitting")
+    if(loading) {
+        return <h1>Loading</h1>
     }
 
     return (
         <div className="mt-1 mx-3">
-            <p>{ID}</p>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleService}>
             <Form.Group id="ServiceName" className="mb-3 form-floating">
-                <Form.Control type="text" ref={serviceName} className="form-control" placeholder="Service Name" id="InputServiceName" aria-describedby="service name" />
-                <Form.Label for="InputServiceName" className="form-label floatingInput" onChange={handleTitle}>
+                <Form.Control onChange={handleTitle} type="text" ref={serviceName} className="form-control" placeholder="Service Name" id="InputServiceName" aria-describedby="service name" />
+                <Form.Label for="InputServiceName" className="form-label floatingInput">
                   Service Name
                 </Form.Label>
               </Form.Group>
@@ -80,6 +86,7 @@ export default function ListServiceForm() {
                 <Form.Label>Upload photos of your service!</Form.Label>
                 <Form.Control ref={images} type="file" multiple />
             </Form.Group>
+            <Button type="submit">Submit</Button>
             </Form>
         </div>
     )
