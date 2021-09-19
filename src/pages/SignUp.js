@@ -3,7 +3,7 @@ import firebase from "firebase/app";
 import { useAuth } from "../contexts/AuthContext.js";
 import Navigation from '../components/Navigation.js';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import LogOut from '../components/Logout.js';
+import Logout from '../components/Logout.js';
 import SignUpForm from '../components/Signupform'
 import { Link } from "@reach/router"
 
@@ -64,13 +64,17 @@ export default function SignUp() {
 	return (
 		<div>
 			<Navigation />
-			<h1 className="text-center mt-5">Sign up</h1>
-			
+			<h1 className="text-center mt-5">{currentUser ? "You're already logged in!" : "Sign Up"}</h1>
+
 			{currentUser ?
-				<LogOut /> :
+				<div className="d-flex justify-content-center">
+				<Logout />
+			</div> :
+				<>
 				<SignUpForm />
+				<p className="text-center">Already have an account? <Link to="/login">Log in here!</Link></p>
+				</>
 			}
-			<p className="text-center">Already have an account? <Link to="/login">Log in here!</Link></p>
 				{/* <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} /> */}
 		</div>
 	)

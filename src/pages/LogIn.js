@@ -64,13 +64,20 @@ export default function LogIn() {
 	return (
 		<div>
 			<Navigation />
-			<h1 className="text-center mt-5">Log In</h1>
+			<h1 className="text-center mt-5">{currentUser ? "You're already logged in!" : "Log In"}</h1>
 			
 			{currentUser ?
-				<Logout /> :
-				<LogInForm />
+				<>
+				<div className="d-flex justify-content-center">
+					<Logout />
+				</div>
+				</> :
+				<>
+				<LogInForm />			
+				<p className="text-center">Don't have an account? <Link to="/signup">Sign up here!</Link></p>
+				</>
+
 			}
-			<p className="text-center">Don't have an account? <Link to="/signup">Sign up here!</Link></p>
 
 				{/* <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} /> */}
 		</div>

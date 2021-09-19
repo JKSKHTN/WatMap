@@ -51,9 +51,9 @@ export default function MapContainer() {
   return (
 
     // Important! Always set the container height explicitly
-    <div style={{ height: '100vh', width: '100%' }}>
+    <div className="container">
 
-      <Container style={{ height: "100%" }}>
+      <Container style={{ height: "100%" }} fluid container="container-fluid" >
         <Row>
           <Col sm={2}>
             <Sidebar centerMap={setCenterLocation} />

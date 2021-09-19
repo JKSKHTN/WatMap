@@ -60,23 +60,22 @@ export default function Profile() {
 			<>
 				{!inEditMode ?
 
-					<div>
-						<Container>
-							<h2> Welcome {currentUser.displayName} </h2>
-							<Button onClick={() => { setInEditMode(true) }}> Update Profile Info</Button>
+					<div className="mt-5 mx-5">
+						<Button className="float-end mr-5" onClick={() => { setInEditMode(true) }}> Update Profile Info</Button>
+						<Container className="text-center">
+							<h2 class="fs-1 mb-3"> Welcome{` ${currentUser.displayName} `}!</h2>
 							<h2> Your Services </h2>
-
 							{services && services.map((service => <IndividualProfileServiceListing service={service} />))}
 
 						</Container>
 					</div> :
 
-					<>
-						<h2> Welcome to {APP_NAME}</h2>
-						<p>Please enter your name</p>
+					<div className="text-center mt-4">
+						{!currentUser.displayName && <h2> Welcome to {APP_NAME}</h2>}
+						{!currentUser.displayName ? <p>Please enter your name:</p> : <h1>Please enter your new name!</h1>}
 						<input type="text" value={nameInput} onChange={(e) => setNameInput(e.target.value)} />
 						<Button onClick={() => updateNameInFirebase(nameInput)}> Done</Button>
-					</>}
+					</div>}
 			</>
 		)
 	}
