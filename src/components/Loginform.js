@@ -22,7 +22,7 @@ export default function LogInForm() {
             setError("");
             setLoading(true);
             await login(email, pwd);
-            navigate('/dashboard')
+            navigate('/home')
           } catch {
             setError("Failed to log in");
           }
@@ -40,6 +40,13 @@ export default function LogInForm() {
                 </Alert>}
                 <Form onSubmit={handleSubmit}>
                     <Form.Group id="email" className="mb-3 form-floating">
+                    <Form.Label
+                            for="InputEmail"
+                            className="form-label floatingInput"
+                            style={{color: '#fff'}}
+                        >
+                            Email Address
+                        </Form.Label>
                         <Form.Control
                             type="email"
                             ref={emailRef}
@@ -49,14 +56,16 @@ export default function LogInForm() {
                             aria-describedby="email"
                             required
                         />
-                        <Form.Label
-                            for="InputEmail"
-                            className="form-label floatingInput"
-                        >
-                            Email Address
-                        </Form.Label>
+                        
                     </Form.Group>
                     <Form.Group id="password" className="mb-3 form-floating">
+                    <Form.Label
+                            for="InputPassword"
+                            className="form-label floatingInput"
+                            style={{color: '#fff'}}x
+                        >
+                            Password
+                        </Form.Label>
                         <Form.Control
                             type="password"
                             ref={passwordRef}
@@ -66,16 +75,11 @@ export default function LogInForm() {
                             placeholder="Password"
                             required
                         />
-                        <Form.Label
-                            for="InputPassword"
-                            className="form-label floatingInput"
-                        >
-                            Password
-                        </Form.Label>
+                        
                     </Form.Group>
                     <div className="d-flex justify-content-center">
                         <Button
-                            className="auth-btn"
+                            className="auth-btn w-100 mt-2"
                             bsPrefix="uw-yellow"
                             type="submit"
                             disabled={loading}

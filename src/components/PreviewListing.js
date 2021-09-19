@@ -83,11 +83,13 @@ export default function PreviewList({ id , closeModal}) {
               </Carousel.Item>)
             })}
           </Carousel>}
-          <h1>{info.title}</h1>
-          <div class="box sb2"><p>{info.description}</p></div>
+          <h3 className="fs-5 mt-2">{info.title}</h3>
+          <div className="box sb2"><p>{info.description}</p></div>
           
-          <Button bsPrefix="uw-yellow" onClick={() => {confirmContact(info.contact)}} >CONTACT PROVIDER</Button>
-          {alert && <Alert bsPrefix="uw-yellow" className="mt-2">You can contact <span className="fs-5 text-bold">{alert}</span> for more info!</Alert>}
+          <div className="justify-content-center d-flex">
+          <Button bsPrefix="uw-yellow fs-3" onClick={() => {confirmContact(info.contact)}} >CONTACT PROVIDER</Button>
+          </div>
+          {alert && <Alert bsPrefix="uw-yellow" className="mt-3">You can contact <span className="fs-5 text-bold">{alert}</span> for more info!</Alert>}
         </Card.Body>
       </Card>
     </>
