@@ -5,7 +5,7 @@ import firebase from 'firebase';
 import { getServices } from './Map';
 
 export function checkIfServiceInSearch(service, searchVal){
-	return (service && service.description && service.description.indexOf(searchVal) !== -1 || (service && service.title && service.title.indexOf(searchVal) !== -1) || searchVal === "");
+	return (service && service.description && service.description.toLowerCase().indexOf(searchVal.toLowerCase()) !== -1 || (service && service.title && service.title.toLowerCase().indexOf(searchVal.toLowerCase()) !== -1) || searchVal === "");
 }
 export default function Sidebar({ centerMap, searchVal, setSearchVal }) {
 	const [show, setShow] = useState(false);

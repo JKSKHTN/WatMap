@@ -9,7 +9,7 @@ import { useAuth } from "../contexts/AuthContext.js";
 import { navigate } from "@reach/router"
 
 
-export default function ListServiceForm({location, closeModal, name, description}) {
+export default function ListServiceForm({location, closeModal, name, description, existID}) {
     const serviceName = useRef();
     const serviceDescription = useRef();
     const images = useRef();
@@ -28,11 +28,47 @@ export default function ListServiceForm({location, closeModal, name, description
         e.preventDefault();
         console.log(images)
         const urls = []
-        if (serviceRef.doc(ID).exists) {
-            console.log("hello")
-            serviceRef.doc(ID).update({
+        const existing = existID ? existID : ID
+        console.log(existID)
+        serviceRef.doc(existing).get().then((doc) => {
+            if (doc.exists) {
+                console.log("hello")
+                serviceRef.doc(existID).update({
+                    title: serviceName.current.value,
+                    description: serviceDescription.current.value,
+                }).then(() => {
+                    setLoading(true);
+                    window.location.reload();
+                    // serviceRef.doc(ID).update({
+                    //     photosRef: urls
+                    // })
+                    
+                })
+            } else {
+                serviceRef.doc(ID).set({
                 title: serviceName.current.value,
                 description: serviceDescription.current.value,
+                location: location,
+                owner: currentUser.uid,
+                // photosRef: '',
+            }).then(() => {
+                if (images.current.files.length > 0) {
+                    for (const file in images.current.files) {
+                    // images.current.files.map((file, index) => {
+                        if(file !== 'item' && file !== 'length') {
+                            const picRef = storageRef.ref().child(`${ID}/${ID}${file}.png`);
+                            picRef.put(images.current.files[file]).then((snapshot) => {
+                                console.log("Uploaded a pic!");
+                                storageRef.ref(`${ID}/${ID}${file}.png`).getDownloadURL().then((URL) => {
+                                    urls.push(URL)
+                                })
+                            });
+                        }
+                    // })
+                    }
+                }
+            
+
             }).then(() => {
                 setLoading(true);
                 window.location.reload();
@@ -41,44 +77,14 @@ export default function ListServiceForm({location, closeModal, name, description
                 // })
                 
             })
-        } else {
-        serviceRef.doc(ID).set({
-            title: serviceName.current.value,
-            description: serviceDescription.current.value,
-            location: location,
-            owner: currentUser.uid,
-            // photosRef: '',
-        }).then(() => {
-            if (images.current.files.length > 0) {
-                for (const file in images.current.files) {
-                // images.current.files.map((file, index) => {
-                    if(file !== 'item' && file !== 'length') {
-                        const picRef = storageRef.ref().child(`${ID}/${ID}${file}.png`);
-                        picRef.put(images.current.files[file]).then((snapshot) => {
-                            console.log("Uploaded a pic!");
-                            storageRef.ref(`${ID}/${ID}${file}.png`).getDownloadURL().then((URL) => {
-                                urls.push(URL)
-                            })
-                        });
-                    }
-                // })
-                }
-            }
-        
-
-        }).then(() => {
-            setLoading(true);
-            window.location.reload();
-            // serviceRef.doc(ID).update({
-            //     photosRef: urls
-            // })
-            
+        }
         })
-    }
+                
+             
     }
 
     const handleTitle = (e) => {
-        console.log(images)
+        console.log(ID)
         setID(e.target.value.replace(/ /g, "-").toLowerCase() + "-" + btoa(dayjs().format()).substring(23, 29));
     };
 
