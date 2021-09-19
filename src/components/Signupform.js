@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react'
 import Navigation from './Navigation'
 import { Form, Button, Container, Alert } from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import LogOut from './Logout';
 import { useAuth } from "../contexts/AuthContext.js";
 import { navigate } from "@reach/router"

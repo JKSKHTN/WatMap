@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import Navigation from './Navigation'
 import { Form, Button, Container, Alert, Spinner } from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import LogOut from './Logout';
 import firebase from "firebase/app";
 import "firebase/storage";

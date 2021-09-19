@@ -3,7 +3,6 @@ import { Modal, Button } from "react-bootstrap"
 
 import Navigation from '../components/Navigation'
 
-import 'bootstrap/dist/css/bootstrap.min.css';
 import LogOut from '../components/Logout';
 import MapContainer from '../components/Map';
 import ListServiceForm from "../components/serviceList";

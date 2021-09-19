@@ -28,7 +28,7 @@ export default function Sidebar({ centerMap, searchVal, setSearchVal }) {
 		return (
 			<>
 				<h6 className="text-muted">Search for services</h6>
-				<input type="text" value={searchVal} onChange={(e) => setSearchVal(e.target.value)} />
+				<input className="w-100 mb-3" style={{border: 'none', backgroundColor: '#ebebeb'}} type="text" value={searchVal} onChange={(e) => setSearchVal(e.target.value)} />
 				{/* <Button>Search</Button> */}
 				<div>
 					{services.map((service) => {

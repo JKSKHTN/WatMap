@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Carousel, Image, Spinner, Card, Button, CloseButton } from "react-bootstrap";
+import { Carousel, Image, Spinner, Card, Button, CloseButton, Alert } from "react-bootstrap";
 import firebase from "firebase/app";
 import { useAuth } from "../contexts/AuthContext"
 
@@ -8,6 +8,7 @@ export default function PreviewList({ id , closeModal}) {
   const [info, setInfo] = useState()
   const [docid, setDocid] = useState()
   const [pics, setPics] = useState()
+  const [alert, setAlert] = useState()
   const [loading, setLoading] = useState()
   const { currentUser } = useAuth();
 
@@ -39,6 +40,10 @@ export default function PreviewList({ id , closeModal}) {
     getListing();
   }, [currentUser]);
 
+  const confirmContact = (number) => {
+    setAlert(`You can contact ${number} for more info!`)
+  }
+
   if (loading) {
     return (<><Spinner animation="border" /> </>);
   }
@@ -66,7 +71,7 @@ export default function PreviewList({ id , closeModal}) {
         </Card.Header>
 
         <Card.Body>
-          <Carousel onClick={(e) => { e.stopPropagation() }}>
+          {pics.length > 0 && <Carousel onClick={(e) => { e.stopPropagation() }}>
             {pics.map((pic) => {
               // { console.log("FOUMND PI", pic) }
               return (<Carousel.Item>
@@ -77,12 +82,12 @@ export default function PreviewList({ id , closeModal}) {
                 />
               </Carousel.Item>)
             })}
-          </Carousel>
+          </Carousel>}
           <h1>{info.title}</h1>
-          <p>{info.description}</p>
+          <div class="box sb2"><p>{info.description}</p></div>
           
-          <Button variant="primary" onClick={() => {alert("Please contact: " )}} >Contact Provider</Button>
-
+          <Button bsPrefix="uw-yellow" onClick={() => {confirmContact(info.contact)}} >CONTACT PROVIDER</Button>
+          {alert && <Alert variant="warning">{alert}</Alert>}
         </Card.Body>
       </Card>
     </>
