@@ -3,8 +3,9 @@ import CheckAuth from '../PrivateRoute';
 import firebase from "firebase/app";
 import { useAuth } from '../contexts/AuthContext';
 import { APP_NAME } from "../constants";
-import { Form, Button, Container, Alert, Spinner, Card } from "react-bootstrap";
+import { Form, Button, Container, Alert, Spinner, Card, Row, Col, Modal } from "react-bootstrap";
 import { getServices } from './Map';
+import ListServiceForm from './serviceList.js' 
 
 export default function Profile() {
 	// if(!CheckAuth()){
@@ -65,8 +66,9 @@ export default function Profile() {
 						<Container className="text-center">
 							<h2 class="fs-1 mb-3"> Welcome{` ${currentUser.displayName} `}!</h2>
 							<h2> Your Services </h2>
-							{services && services.map((service => <IndividualProfileServiceListing service={service} />))}
-
+							 <Row>
+          					{services && services.map((service => <Col sm={2}><IndividualProfileServiceListing service={service} /></Col>))}
+							</Row>
 						</Container>
 					</div> :
 
@@ -84,14 +86,25 @@ export default function Profile() {
 
 function IndividualProfileServiceListing({ service }) {
 	return (
+		<>
 		<Card >
 			<Card.Body>
 				<Card.Title>{service.title}</Card.Title>
 				<Card.Text>
 					{service.description}
 				</Card.Text>
+				<Button>Edit Service</Button>
 			</Card.Body>
 		</Card>
+
+		<Modal show={show} onHide={}>
+		<Modal.Dialog closeButton>
+			<Modal.Body>
+				<ListServiceForm />
+			</Modal.Body>
+		</Modal.Dialog>
+		</Modal>
+		</>
 
 	);
 }
