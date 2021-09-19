@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Carousel, Image, Spinner, Card, Button } from "react-bootstrap";
+import { Carousel, Image, Spinner, Card, Button, CloseButton } from "react-bootstrap";
 import firebase from "firebase/app";
 import { useAuth } from "../contexts/AuthContext"
 
-export default function PreviewList() {
+export default function PreviewList({ id }) {
   const listingRef = firebase.firestore().collection("listings")
   const [info, setInfo] = useState()
   const [docid, setDocid] = useState()
@@ -16,7 +16,11 @@ export default function PreviewList() {
   async function getListing() {
     setLoading(true)
     const pictures = [];
-    let doc = await listingRef.doc('manicures-zNC0wN').get();
+    let doc = await listingRef.doc(id).get();
+    if (!doc.exists) {
+      setLoading(false);
+      return;
+    }
     setInfo(doc.data())
     let resListAll = await storageRef.ref().child(doc.id).listAll();
     let index = 0
@@ -53,11 +57,16 @@ export default function PreviewList() {
 
   return (
     <>
-      <Card style={{ width: "500px" }}>
+      <Card style={{ width: "500px", zIndex: 999999 }} >
+
+        <Card.Header>
+          <CloseButton />
+        </Card.Header>
+
         <Card.Body>
-          <Carousel>
+          <Carousel onClick={(e) => { e.stopPropagation() }}>
             {pics.map((pic) => {
-              { console.log("FOUMND PI", pic) }
+              // { console.log("FOUMND PI", pic) }
               return (<Carousel.Item>
                 <img
                   className="d-block w-100"
