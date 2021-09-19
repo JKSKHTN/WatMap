@@ -30,70 +30,77 @@ export default function PreviewList() {
   }
 
 
-useEffect(() => {
-  getListing();
-}, [currentUser]);
+  useEffect(() => {
+    getListing();
+  }, [currentUser]);
 
-if (loading) {
-  return (<><Spinner animation="border" /> </>);
-}
+  if (loading) {
+    return (<><Spinner animation="border" /> </>);
+  }
 
-console.log("pics are", pics);
+  console.log("pics are", pics);
 
-if (!pics) {
-  return (<Spinner animation="border" />);
-}
+  if (!pics) {
+    return (
 
-return (
-  <>
-  <Card style={{width: "500px"}}>
-    <Card.Body>
-    <Carousel>
-      {pics.map((pic) => {
-        { console.log("FOUMND PI", pic) }
-        return (<Carousel.Item>
-          <img
-            className="d-block w-100"
-            src={pic}
-            alt="First slide"
-          />
-        </Carousel.Item>)
-      })}
-    </Carousel>
-      <h1>{info.title}</h1>
-     <p>{info.description}</p>
-     <Button variant="primary">Contact Provider</Button>
-      </Card.Body>
-  </Card>
-  </>
+      <Card style={{ width: "500px" }}>
+        <Card.Body>
+          <Spinner animation="border" />
+        </Card.Body>
+      </Card>
+    );
+  }
 
-);
+  return (
+    <>
+      <Card style={{ width: "500px" }}>
+        <Card.Body>
+          <Carousel>
+            {pics.map((pic) => {
+              { console.log("FOUMND PI", pic) }
+              return (<Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  src={pic}
+                  alt="First slide"
+                />
+              </Carousel.Item>)
+            })}
+          </Carousel>
+          <h1>{info.title}</h1>
+          <p>{info.description}</p>
+          <Button variant="primary">Contact Provider</Button>
+        </Card.Body>
+      </Card>
+    </>
 
-// return (
-//   <Card>
-//     <div>{info && <>
-//       <Carousel>
-//         {pics && pics.map((p) => {
-//           <Carousel.Item>
-//             <img
-//               className="d-block w-100"
-//               src={p}
-//               alt="First slide"
-//             />
-//           </Carousel.Item>
+  );
 
-//         })}
-//       </Carousel>
-//       <h1>{info.title}</h1>
-//       <p>{info.description}</p>
-//       {pics && pics.map((p) => {
-//         return (<p>
-//           {p}
-//         </p>)
-//       })}
-//     </>
-//     }
-//     </div>
-//   </Card>
-// )
+  // return (
+  //   <Card>
+  //     <div>{info && <>
+  //       <Carousel>
+  //         {pics && pics.map((p) => {
+  //           <Carousel.Item>
+  //             <img
+  //               className="d-block w-100"
+  //               src={p}
+  //               alt="First slide"
+  //             />
+  //           </Carousel.Item>
+
+  //         })}
+  //       </Carousel>
+  //       <h1>{info.title}</h1>
+  //       <p>{info.description}</p>
+  //       {pics && pics.map((p) => {
+  //         return (<p>
+  //           {p}
+  //         </p>)
+  //       })}
+  //     </>
+  //     }
+  //     </div>
+  //   </Card>
+  // )
 }

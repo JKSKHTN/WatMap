@@ -15,7 +15,7 @@ export default function Navigation() {
 		<div>
 			<Navbar expand="lg" bg="dark" variant="dark">
 				<Container>
-					<Navbar.Brand href="">React-Bootstrap</Navbar.Brand>
+					<Navbar.Brand href="">WatMap</Navbar.Brand>
 					<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 					<Navbar.Collapse id="responsive-navbar-nav">
 						<Nav className="me-auto">

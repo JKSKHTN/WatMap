@@ -6,7 +6,6 @@ import ListServiceForm from "../components/serviceList"
 import firebase from 'firebase/app';
 import PreviewList from './PreviewListing';
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 export async function getServices() {
   const snapshot = await firebase.firestore().collection('listings').get()
@@ -88,6 +87,9 @@ export default function MapContainer() {
                     service={service}
                     lat={service.location.lat}
                     lng={service.location.lng}
+                    showingCard={currentPinShowing == service.id}
+                    // key={currentPinShowing}
+                    setCurrentPinShowing={setCurrentPinShowing}
                   />
                 );
               })}
@@ -108,15 +110,16 @@ function CenterMap(location) {
 }
 
 
-function MapPin({ title, service, showing, setCurrentPinShowing }) {
+function MapPin({ title, service, showingCard, setCurrentPinShowing }) {
+  console.log("IS SHOWING", showingCard);
   return (<div style={{style:"z-index: 1000"}}>
   {showingCard ? <PreviewList id={service.id}></PreviewList> : null}
+
     <div class='pin' onClick={(e) => {
       setCurrentPinShowing(service.id);
 
       e.preventDefault();
       e.stopPropagation();
-      setShowingCard(true);
     }}></div>
 
     {/* <Button variant="light">{title}</Button> */}
