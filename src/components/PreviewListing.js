@@ -30,6 +30,7 @@ export default function PreviewList({ id , closeModal}) {
       index += 1;
     }
     setPics(pictures);
+    console.log("FOUND PICTURES", pictures);
     setLoading(false)
   }
 
