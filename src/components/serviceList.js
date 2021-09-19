@@ -9,8 +9,9 @@ import { useAuth } from "../contexts/AuthContext.js";
 import { navigate } from "@reach/router"
 
 
-export default function ListServiceForm({location, closeModal, name, description, existID}) {
+export default function ListServiceForm({location, closeModal, name, description, existID, contact}) {
     const serviceName = useRef();
+    const serviceContact = useRef();
     const serviceDescription = useRef();
     const images = useRef();
     const serviceRef = firebase.firestore().collection("listings")
@@ -29,13 +30,14 @@ export default function ListServiceForm({location, closeModal, name, description
         console.log(images)
         const urls = []
         const existing = existID ? existID : ID
-        console.log(existID)
+    console.log(existID)
         serviceRef.doc(existing).get().then((doc) => {
             if (doc.exists) {
                 console.log("hello")
                 serviceRef.doc(existID).update({
                     title: serviceName.current.value,
                     description: serviceDescription.current.value,
+                    contact: serviceContact.current.value
                 }).then(() => {
                     setLoading(true);
                     window.location.reload();
@@ -50,6 +52,7 @@ export default function ListServiceForm({location, closeModal, name, description
                 description: serviceDescription.current.value,
                 location: location,
                 owner: currentUser.uid,
+                contact: serviceContact.current.value
                 // photosRef: '',
             }).then(() => {
                 if (images.current.files.length > 0) {
@@ -70,8 +73,8 @@ export default function ListServiceForm({location, closeModal, name, description
             
 
             }).then(() => {
-                setLoading(true);
-                window.location.reload();
+                // setLoading(true);
+                // window.location.reload();
                 // serviceRef.doc(ID).update({
                 //     photosRef: urls
                 // })
@@ -110,7 +113,16 @@ export default function ListServiceForm({location, closeModal, name, description
                   Service Description
                 </Form.Label>
               </Form.Group>
-            {name === "" && <Form.Group controlId="formFileMultiple" className="mb-3">
+              <Form.Group id="ServiceContact" className="mb-3 form-floating">
+                <Form.Control type="text" ref={serviceContact} className="form-control" placeholder="Service Contact" id="InputServiceContact" aria-describedby="service contact" required defaultValue={contact ? contact : ""}/>
+                <Form.Label for="InputServiceContact" className="form-label floatingInput">
+                  Contact Info
+                </Form.Label>
+                <Form.Text className="text-muted">
+                    This is how interested students can contact you!
+                </Form.Text>
+              </Form.Group>
+            {!name && <Form.Group controlId="formFileMultiple" className="mb-3">
                 <Form.Label>Upload photos of your service!</Form.Label>
                 <Form.Control ref={images} type="file" multiple required/>
             </Form.Group>}

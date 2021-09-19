@@ -55,6 +55,7 @@ export default function PreviewList({ id , closeModal}) {
     );
   }
 
+  console.log(info)
   return (
     <>
       <Card style={{ width: "500px", zIndex: 999999 }} onClick={(e) => {e.stopPropagation()}} >
@@ -78,7 +79,9 @@ export default function PreviewList({ id , closeModal}) {
           </Carousel>
           <h1>{info.title}</h1>
           <p>{info.description}</p>
-          <Button variant="primary">Contact Provider</Button>
+          
+          <Button variant="primary" onClick={() => {alert("Please contact: " )}} >Contact Provider</Button>
+
         </Card.Body>
       </Card>
     </>

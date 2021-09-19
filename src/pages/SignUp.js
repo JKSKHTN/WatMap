@@ -51,15 +51,15 @@ export default function SignUp() {
 
 	//const { currentUser, signup } = useAuth();
 
-	function getInfo() {
-		userRef.doc("test").get().then((doc) => {
-			setData(doc.data()["name"])
-		})
-	}
+	// function getInfo() {
+	// 	userRef.doc("test").get().then((doc) => {
+	// 		setData(doc.data()["name"])
+	// 	})
+	// }
 
-	useEffect(() => {
-		getInfo();
-	}, [])
+	// useEffect(() => {
+	// 	getInfo();
+	// }, [])
 
 	return (
 		<div>

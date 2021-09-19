@@ -14,6 +14,9 @@ export async function getServices() {
     let object = doc.data()
     object.id = doc.id;
     console.log(object);
+ 
+    // Math.random().toString().slice(2,11);
+
     return object;
   });
 }

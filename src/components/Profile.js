@@ -106,7 +106,7 @@ function IndividualProfileServiceListing({ service }) {
 		<Modal.Header closeButton><Modal.Title>Editing {service.title}</Modal.Title></Modal.Header>
 		<Modal.Body>
 			{console.log(service.id)}
-				<ListServiceForm closeModal={handleClose} name={service.title} description={service.description} existID={service.id} />
+				<ListServiceForm closeModal={handleClose} name={service.title} description={service.description} existID={service.id} contact={service?.contact} />
 		</Modal.Body>
 		</Modal>
 		</>
