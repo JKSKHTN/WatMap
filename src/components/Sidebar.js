@@ -30,7 +30,8 @@ export default function Sidebar({ centerMap }) {
 				{/* <Button>Search</Button> */}
 				<div>
 					{services.map((service) => {
-						if ((service && service.description && service.description.indexOf(searchVal) !== -1) || (service && service.name && service.name.indexOf(searchVal) !== -1) || searchVal !== "") {
+						console.log("serivce is", service.description)
+						if ((service && service.description && service.description.indexOf(searchVal) !== -1) || (service && service.title && service.title.indexOf(searchVal) !== -1) || searchVal === "") {
 							return (
 								<IndividualServiceListing name={service.title} service={service} description={service.description} centerMap={centerMap} />
 							);
