@@ -85,6 +85,11 @@ export default function Profile() {
 }
 
 function IndividualProfileServiceListing({ service }) {
+	const [show, setShow] = useState(false);
+
+	const handleClose = () => setShow(false);
+	const handleShow = () => setShow(true);
+
 	return (
 		<>
 		<Card >
@@ -97,7 +102,7 @@ function IndividualProfileServiceListing({ service }) {
 			</Card.Body>
 		</Card>
 
-		<Modal show={show} onHide={}>
+		<Modal show={show} onHide={handleClose}>
 		<Modal.Dialog closeButton>
 			<Modal.Body>
 				<ListServiceForm />
