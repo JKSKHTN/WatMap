@@ -4,7 +4,10 @@ import { Offcanvas, Card, Spinner, Button } from "react-bootstrap"
 import firebase from 'firebase';
 import { getServices } from './Map';
 
-export default function Sidebar({ centerMap }) {
+export function checkIfServiceInSearch(service, searchVal){
+	return (service && service.description && service.description.indexOf(searchVal) !== -1 || (service && service.title && service.title.indexOf(searchVal) !== -1) || searchVal === "");
+}
+export default function Sidebar({ centerMap, searchVal, setSearchVal }) {
 	const [show, setShow] = useState(false);
 
 	const handleClose = () => setShow(false);
@@ -12,7 +15,6 @@ export default function Sidebar({ centerMap }) {
 	const serviceRef = firebase.firestore().collection("listings")
 
 	const [services, setServices] = useState(null)
-	const [searchVal, setSearchVal] = useState("");
 	// console.log(serviceRef.getDocuments());
 
 	useEffect(async () => {
@@ -31,7 +33,7 @@ export default function Sidebar({ centerMap }) {
 				<div>
 					{services.map((service) => {
 						console.log("serivce is", service.description)
-						if ((service && service.description && service.description.indexOf(searchVal) !== -1) || (service && service.title && service.title.indexOf(searchVal) !== -1) || searchVal === "") {
+						if (checkIfServiceInSearch(service, searchVal)) {
 							return (
 								<IndividualServiceListing name={service.title} service={service} description={service.description} centerMap={centerMap} />
 							);
@@ -46,7 +48,7 @@ export default function Sidebar({ centerMap }) {
 
 
 
-function IndividualServiceListing({ name, description, centerMap, service }) {
+function IndividualServiceListing({ name, description, centerMap, service}) {
 	return (
 		<Card className="mb-2" onClick={() => { console.log("test"); centerMap(service.location) }}>
 			<Card.Body>

@@ -7,6 +7,7 @@ import firebase from 'firebase/app';
 import PreviewList from './PreviewListing';
 
 
+import { checkIfServiceInSearch } from './Sidebar';
 export async function getServices() {
   const snapshot = await firebase.firestore().collection('listings').get()
   return snapshot.docs.map(doc => {
@@ -18,6 +19,7 @@ export async function getServices() {
 }
 
 export default function MapContainer() {
+  const [searchVal, setSearchVal] = useState("");
   const [showAddServiceModal, setShowAddServiceModal] = useState(false);
   const [locationClicked, setLocationClicked] = useState(null)
   const [services, setServices] = useState(null)
@@ -56,7 +58,7 @@ export default function MapContainer() {
       <Container style={{ height: "100vh" }} fluid container="container-fluid" >
         <Row>
           <Col sm={2}>
-            <Sidebar centerMap={setCenterLocation} />
+            <Sidebar centerMap={setCenterLocation} searchVal={searchVal} setSearchVal={setSearchVal} />
           </Col>
 
           <Col sm={10}>
@@ -81,17 +83,19 @@ export default function MapContainer() {
             >
 
               {services.map((service) => {
-                return (
-                  <MapPin
-                    title={service.title}
-                    service={service}
-                    lat={service.location.lat}
-                    lng={service.location.lng}
-                    showingCard={currentPinShowing == service.id}
-                    // key={currentPinShowing}
-                    setCurrentPinShowing={setCurrentPinShowing}
-                  />
-                );
+                if (checkIfServiceInSearch(service, searchVal)) {
+                  return (
+                    <MapPin
+                      title={service.title}
+                      service={service}
+                      lat={service.location.lat}
+                      lng={service.location.lng}
+                      showingCard={currentPinShowing == service.id}
+                      // key={currentPinShowing}
+                      setCurrentPinShowing={setCurrentPinShowing}
+                    />
+                  );
+                }
               })}
             </GoogleMapReact>
           </Col>
@@ -112,8 +116,8 @@ function CenterMap(location) {
 
 function MapPin({ title, service, showingCard, setCurrentPinShowing }) {
   console.log("IS SHOWING", showingCard);
-  return (<div style={{style:"z-index: 1000"}}>
-  {showingCard ? <PreviewList id={service.id}></PreviewList> : null}
+  return (<div style={{ style: "z-index: 1000" }}>
+    {showingCard ? <PreviewList id={service.id}></PreviewList> : null}
 
     <div class='pin' onClick={(e) => {
       setCurrentPinShowing(service.id);
