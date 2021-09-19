@@ -1,16 +1,17 @@
 import React, { Component, useState, useEffect } from 'react';
 import { Button, Container, Col, Row, Modal, Spinner } from "react-bootstrap"
-import GoogleMapReact  from 'google-map-react';
+import GoogleMapReact from 'google-map-react';
 import Sidebar from './Sidebar';
 import ListServiceForm from "../components/serviceList"
 import firebase from 'firebase/app';
+import PreviewList from './PreviewListing';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 export async function getServices() {
   const snapshot = await firebase.firestore().collection('listings').get()
   return snapshot.docs.map(doc => {
-    let object  = doc.data()
+    let object = doc.data()
     object.id = doc.id;
     console.log(object);
     return object;
@@ -21,6 +22,7 @@ export default function MapContainer() {
   const [showAddServiceModal, setShowAddServiceModal] = useState(false);
   const [locationClicked, setLocationClicked] = useState(null)
   const [services, setServices] = useState(null)
+  const [currentPinShowing, setCurrentPinShowing] = useState(null);
 
   const [centerLocation, setCenterLocation] = useState({
     lat: 43.47244938593337,
@@ -30,7 +32,7 @@ export default function MapContainer() {
   const defaultProps = {
     //bounds: { nw, se, sw... },
     zoom: 14
-    
+
   };
 
 
@@ -55,7 +57,7 @@ export default function MapContainer() {
       <Container style={{ height: "100%" }}>
         <Row>
           <Col sm={2}>
-            <Sidebar  centerMap={setCenterLocation} />
+            <Sidebar centerMap={setCenterLocation} />
           </Col>
 
           <Col sm={10}>
@@ -67,15 +69,15 @@ export default function MapContainer() {
               key={JSON.stringify(centerLocation)}
               options={{
                 maxZoom: 50,
-                  restriction: {
-                    latLngBounds:{
+                restriction: {
+                  latLngBounds: {
                     north: 43.524162,
                     south: 43.392919,
                     west: -80.620541,
                     east: -80.381183
-                    },
-                    strictBounds: true
-                  }
+                  },
+                  strictBounds: true
+                }
               }}
             >
 
@@ -106,11 +108,19 @@ function CenterMap(location) {
 }
 
 
-function MapPin({ title, service}) {
-  return (<>
-    <div class='pin'></div>
+function MapPin({ title, service, showing, setCurrentPinShowing }) {
+  return (<div style={{style:"z-index: 1000"}}>
+  {showingCard ? <PreviewList id={service.id}></PreviewList> : null}
+    <div class='pin' onClick={(e) => {
+      setCurrentPinShowing(service.id);
+
+      e.preventDefault();
+      e.stopPropagation();
+      setShowingCard(true);
+    }}></div>
+
     {/* <Button variant="light">{title}</Button> */}
-  </>);
+  </div>);
 }
 /* <MapWithASearchBox /> */
 /*

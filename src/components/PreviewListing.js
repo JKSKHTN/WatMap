@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Carousel, Image, Spinner, Card } from "react-bootstrap";
+import { Carousel, Image, Spinner, Card, Button } from "react-bootstrap";
 import firebase from "firebase/app";
 import { useAuth } from "../contexts/AuthContext"
 
@@ -40,27 +40,14 @@ if (loading) {
 
 console.log("pics are", pics);
 
-// return (
-
-//   <Card>
-//     <Card.Img variant="top" src="holder.js/100px180" />
-//     <Card.Body>
-//       <Card.Title>Card Title</Card.Title>
-//       <Card.Text>
-//         Some quick example text to build on the card title and make up the bulk of
-//         the card's content.
-//       </Card.Text>
-//       <Button variant="primary">Go somewhere</Button>
-//     </Card.Body>
-//   </Card>
-// );
 if (!pics) {
   return (<Spinner animation="border" />);
 }
 
 return (
   <>
-  <Card>
+  <Card style={{width: "500px"}}>
+    <Card.Body>
     <Carousel>
       {pics.map((pic) => {
         { console.log("FOUMND PI", pic) }
@@ -73,8 +60,10 @@ return (
         </Carousel.Item>)
       })}
     </Carousel>
-           <h1>{info.title}</h1>
+      <h1>{info.title}</h1>
      <p>{info.description}</p>
+     <Button variant="primary">Contact Provider</Button>
+      </Card.Body>
   </Card>
   </>
 

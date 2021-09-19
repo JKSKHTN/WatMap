@@ -24,6 +24,7 @@ export default function Sidebar({ centerMap }) {
 	if (services) {
 		return (
 			<>
+				
 				{services.map((service) => {
 					return (
 						<IndividualServiceListing name={service.title} service={service} description={service.description} centerMap={centerMap} />

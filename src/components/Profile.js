@@ -73,7 +73,7 @@ export default function Profile() {
 
 					<>
 						<h2> Welcome to {APP_NAME}</h2>
-						<p>Please enter you name</p>
+						<p>Please enter your name</p>
 						<input type="text" value={nameInput} onChange={(e) => setNameInput(e.target.value)} />
 						<Button onClick={() => updateNameInFirebase(nameInput)}> Done</Button>
 					</>}

@@ -57,7 +57,6 @@ export default function Dashboard() {
 		<div>
 			<Navigation></Navigation>
 			<Profile />
-			<PreviewList />
 		</div>
 	)
 }
