@@ -9,6 +9,7 @@ As most of us are first year university students living on campus, we quickly re
 - Public message boards can be dangerous both in the era of COVID and strangers in general
 
 ## What it does
+WatMap is a localized, virtual marketplace only for University of Waterloo students, who can post services that they offer for other students. For example, one student can offer tutoring services, and WatMap allows other students to find and utilize those services. Other examples can include renting out suits, selling art, teaching/tutoring, and more. This allows students to earn a side income without having to work a part time job.
 
 ## How we built it
 We used Javascript, including React, Bootstrap  and JSX for the frontend, and connected with the Firebase API. For storing the user data we used Firebase Firestore, used Firebase Auth for authentication, and stored images on firebase storage. For our map, we used Google Maps API.
@@ -20,6 +21,9 @@ We ran into many challenges when trying to polish our map and get it to look jus
 One accomplishment that we are proud of is how we planned, designed, built and deployed a fully functional service in such as short time frame!
 
 ## What we learned
+We learned a great deal about how to efficiently work together in such a limited time constraint, especially with the challenges of COVID and remote work. We also learned to only use API calls which are well documented, since guessing and checking can not be done efficiently.
+
+
 
 ## What's next for WatMap
 1. By the end of 2021, we plan to have a working prototype which could be tested by a subset of the students at University of Waterloo. 
