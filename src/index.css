@@ -44,6 +44,23 @@ code {
     border-radius: 50%;
     cursor: pointer;
 }
+
+
+h5.text-above-map-item {
+  font-size: 10px !important;
+  position: absolute !important;
+  bottom: 13px !important;
+  left: -14px !important;
+  /* background-color: white; */
+  /* padding: 59px; */
+  color: white;
+  background: #3e5be7;
+  padding: 6px;
+  border-radius: 10px;
+}
+
+
+
 /*
 
  width 30px

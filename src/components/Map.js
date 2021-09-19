@@ -119,6 +119,7 @@ function MapPin({ title, service, showingCard, setCurrentPinShowing }) {
   return (<div style={{ style: "z-index: 1000" }}>
     {showingCard ? <PreviewList id={service.id}></PreviewList> : null}
 
+    <h5 className="text-above-map-item">{service.title}</h5>
     <div class='pin' onClick={(e) => {
       setCurrentPinShowing(service.id);
 

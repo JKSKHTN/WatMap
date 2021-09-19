@@ -98,12 +98,13 @@ function IndividualProfileServiceListing({ service }) {
 				<Card.Text>
 					{service.description}
 				</Card.Text>
-				<Button>Edit Service</Button>
+				<Button onClick={handleShow}>Edit Service</Button>
 			</Card.Body>
 		</Card>
 
 		<Modal show={show} onHide={handleClose}>
-		<Modal.Dialog closeButton>
+		<Modal.Header closeButton><Modal.Title>Editing {service.title}</Modal.Title></Modal.Header>
+		<Modal.Dialog>
 			<Modal.Body>
 				<ListServiceForm />
 			</Modal.Body>
