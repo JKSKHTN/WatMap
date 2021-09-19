@@ -56,11 +56,14 @@ export default function LogInForm() {
                 </Alert>}
                 <Form onSubmit={handleSubmit}>
                     <Form.Group id="email" className="mb-3 form-floating" onClick={testfunc}>
+                    <Form.Text className="text-muted">
+                        UWaterloo Emails only
+                        </Form.Text>
                         <Form.Control
                             type="email"
                             ref={emailRef}
                             className="form-control"
-                            placeholder="name@uwaterloo.ca"
+                            placeholder="Email Address"
                             id="InputEmail"
                             aria-describedby="email"
                             required
@@ -71,17 +74,19 @@ export default function LogInForm() {
                         >
                             Email Address
                         </Form.Label>
-                        <Form.Text className="text-muted">
-                        UWaterloo Emails only
-                        </Form.Text>
+                        
                     </Form.Group>
                     <Form.Group id="password" className="mb-3 form-floating">
+                    <Form.Text className="text-muted">
+      Password must be at least 6 characters long
+    </Form.Text>
                         <Form.Control
                             type="password"
                             ref={passwordRef}
                             className="form-control"
                             id="InputPassword"
                             aria-describedby="password"
+                            placeholder="Password"
                             required
                         />
                         <Form.Label
@@ -90,9 +95,7 @@ export default function LogInForm() {
                         >
                             Password
                         </Form.Label>
-                        <Form.Text className="text-muted">
-      Password must be at least 6 characters long
-    </Form.Text>
+                        
                     </Form.Group>
                     <Form.Group id="password-confirm" className="mb-3 form-floating">
                         <Form.Control
@@ -100,6 +103,7 @@ export default function LogInForm() {
                             ref={passwordConfirmRef}
                             className="form-control"
                             id="InputPasswordConfirm"
+                            placeholder="Confirm Password"
                             aria-describedby="password confirm"
                             required
                         />
@@ -110,14 +114,16 @@ export default function LogInForm() {
                             Confirm Password
                         </Form.Label>
                     </Form.Group>
+                    <div className="d-flex justify-content-center">
                     <Button
                         className="auth-btn"
                         type="submit"
                         disabled={loading}
-                        variant="primary"
+                        bsPrefix="uw-yellow"
                     >
                         Sign Up
                     </Button>
+                    </div>
                 </Form>
             </div>
             </Container>

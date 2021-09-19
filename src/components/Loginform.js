@@ -44,7 +44,7 @@ export default function LogInForm() {
                             type="email"
                             ref={emailRef}
                             className="form-control"
-                            placeholder="name@uwaterloo.ca"
+                            placeholder="Email Address"
                             id="InputEmail"
                             aria-describedby="email"
                             required
@@ -63,6 +63,7 @@ export default function LogInForm() {
                             className="form-control"
                             id="InputPassword"
                             aria-describedby="password"
+                            placeholder="Password"
                             required
                         />
                         <Form.Label
@@ -72,15 +73,17 @@ export default function LogInForm() {
                             Password
                         </Form.Label>
                     </Form.Group>
-                    <Button
-                        className="auth-btn"
-                        bsPrefix="uw-yellow"
-                        type="submit"
-                        disabled={loading}
-                        variant="primary"
-                    >
-                        Login
-                    </Button>
+                    <div className="d-flex justify-content-center">
+                        <Button
+                            className="auth-btn"
+                            bsPrefix="uw-yellow"
+                            type="submit"
+                            disabled={loading}
+                            variant="primary"
+                        >
+                            Login
+                        </Button>
+                    </div>
                 </Form>
             </div>
             </Container>

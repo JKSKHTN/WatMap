@@ -72,7 +72,7 @@ export default function SignUp() {
 			</div> :
 				<>
 				<SignUpForm />
-				<p className="text-center">Already have an account? <Link to="/login">Log in here!</Link></p>
+				<p className="text-center">Already have an account? <Link className="uw-text" to="/login">Log in here!</Link></p>
 				</>
 			}
 				{/* <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} /> */}

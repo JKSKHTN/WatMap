@@ -41,7 +41,7 @@ export default function PreviewList({ id , closeModal}) {
   }, [currentUser]);
 
   const confirmContact = (number) => {
-    setAlert(`You can contact ${number} for more info!`)
+    setAlert(number)
   }
 
   if (loading) {
@@ -64,7 +64,7 @@ export default function PreviewList({ id , closeModal}) {
   console.log(info)
   return (
     <>
-      <Card style={{ width: "500px", zIndex: 999999 }} onClick={(e) => {e.stopPropagation()}} >
+      <Card style={{ width: "350px", zIndex: 999999 }} onClick={(e) => {e.stopPropagation()}} >
 
         <Card.Header>
           <CloseButton onClick={(e) => {e.stopPropagation(); closeModal()}} />
@@ -87,7 +87,7 @@ export default function PreviewList({ id , closeModal}) {
           <div class="box sb2"><p>{info.description}</p></div>
           
           <Button bsPrefix="uw-yellow" onClick={() => {confirmContact(info.contact)}} >CONTACT PROVIDER</Button>
-          {alert && <Alert variant="warning">{alert}</Alert>}
+          {alert && <Alert bsPrefix="uw-yellow" className="mt-2">You can contact <span className="fs-5 text-bold">{alert}</span> for more info!</Alert>}
         </Card.Body>
       </Card>
     </>

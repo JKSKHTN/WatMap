@@ -75,7 +75,7 @@ export default function LogIn() {
 				</> :
 				<>
 				<LogInForm />			
-				<p className="text-center">Don't have an account? <Link to="/signup">Sign up here!</Link></p>
+				<p className="text-center">Don't have an account? <Link className="uw-text" to="/signup">Sign up here!</Link></p>
 				</>
 
 			}

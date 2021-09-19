@@ -6,6 +6,7 @@ import { Router, Link } from "@reach/router"
 
 import { useAuth } from "../contexts/AuthContext"
 import Logout from './Logout.js';
+import logo from "../assets/WatMap.png";
 
 export default function Navigation() {
 
@@ -13,11 +14,16 @@ export default function Navigation() {
 
 	return (
 		<div>
-			<Navbar expand="lg" bg="dark" variant="dark">
+			<Navbar expand="lg"  bg="dark" variant="dark">
 				<Container>
-					<Navbar.Brand href="">WatMap</Navbar.Brand>
+					<Navbar.Brand href="#"><img
+						src={logo}
+						width="100"
+						// height="50"
+						className="d-inline-block align-top"
+					/></Navbar.Brand>
 					<Navbar.Toggle aria-controls="responsive-navbar-nav" />
-					<Navbar.Collapse id="responsive-navbar-nav">
+					<Navbar.Collapse id="responsive-navbar-nav" style={{justifyContent: 'space-between'}}>
 						<Nav className="me-auto">
 							<Link to="/home" className="nav-link"> Home </Link>
 							{currentUser ?

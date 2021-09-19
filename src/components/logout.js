@@ -18,7 +18,7 @@ export default function Logout() {
 
 	return (
 		<div>
-            <Button onClick={handleLogout} variant="primary">Logout</Button> 
+            <Button bsPrefix="uw-yellow" onClick={handleLogout} >Logout</Button> 
 		</div>
 	)
 }

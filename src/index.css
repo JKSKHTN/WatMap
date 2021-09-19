@@ -25,7 +25,7 @@ code {
 .pin{
   height: 30px;
   width: 30px;
-  background: #260795;
+  background: #F9D54F;
   border-radius: 50% 50% 50% 0;
   position: absolute;
   transform: rotate(-45deg);
@@ -39,7 +39,7 @@ code {
     width :14px;
     height: 14px;
     margin: 8px 0 0 8px;
-    background: #1836a2;
+    background: #C7AB3F;
     position :absolute;
     border-radius: 50%;
     cursor: pointer;

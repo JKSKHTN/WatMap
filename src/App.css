@@ -38,6 +38,42 @@
 } */
 
 .uw-yellow {
-  background-color: #;
-  color: 
+  background-color: #F9D54F;
+  color: #000;
+  border: none;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.box {
+  width: 300px;
+  margin: 30px auto;
+  background: #F9D54F;
+  padding: 20px;
+  text-align: center;
+  font-weight: 900;
+  font-size: 20px;
+  color: #000;
+  position: relative;
+}
+
+.sb2:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 10px solid transparent;
+  border-right: 10px solid #F9D54F;
+  border-top: 10px solid #F9D54F;
+  border-bottom: 10px solid transparent;
+  left: -19px;
+  top: 6px;
+}
+
+.uw-text {
+  color: #F9D54F;
+}
+
+.uw-text:hover {
+  color: #fff;
 }

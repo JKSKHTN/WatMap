@@ -100,34 +100,38 @@ export default function ListServiceForm({ location, closeModal, name, descriptio
         <div className="mt-1 mx-3">
             <Form onSubmit={handleService}>
                 <Form.Group id="ServiceName" className="mb-3 form-floating">
-                    <Form.Control onChange={handleTitle} type="text" ref={serviceName} className="form-control" placeholder="Service Name" id="InputServiceName" aria-describedby="service name" required defaultValue={name ? name : ""} />
-                    <Form.Label for="InputServiceName" className="form-label floatingInput">
+                <Form.Label for="InputServiceName" className="form-label floatingInput"  style={{color: '#fff'}}>
                         Service Name
                     </Form.Label>
+                    <Form.Control onChange={handleTitle} type="text" ref={serviceName} className="form-control" placeholder="Service Name" id="InputServiceName" aria-describedby="service name" required defaultValue={name ? name : ""} />
+                    
                 </Form.Group>
                 <Form.Group id="ServiceDescription" className="mb-3 form-floating">
+                <Form.Label for="InputServiceDescription" className="form-label floatingInput" style={{color: '#fff'}}>
+                        Service Description
+                    </Form.Label>
                     <Form.Control as="textarea"
                         style={{
                             height: "200px",
                         }} type="text" ref={serviceDescription} className="form-control" placeholder="Service Description" id="InputServiceDescription" aria-describedby="service description" required defaultValue={description ? description : ""} />
-                    <Form.Label for="InputServiceDescription" className="form-label floatingInput">
-                        Service Description
-                    </Form.Label>
+                    
                 </Form.Group>
                 <Form.Group id="ServiceContact" className="mb-3 form-floating">
-                    <Form.Control type="text" ref={serviceContact} className="form-control" placeholder="Service Contact" id="InputServiceContact" aria-describedby="service contact" required defaultValue={contact ? contact : ""} />
-                    <Form.Label for="InputServiceContact" className="form-label floatingInput">
+                
+                    <Form.Label for="InputServiceContact" className="form-label floatingInput" style={{color: '#fff'}}>
                         Contact Info
                     </Form.Label>
+                    
+                    <Form.Control type="text" ref={serviceContact} className="form-control" placeholder="Service Contact" id="InputServiceContact" aria-describedby="service contact" required defaultValue={contact ? contact : ""} />
                     <Form.Text className="text-muted">
                         This is how interested students can contact you!
                     </Form.Text>
                 </Form.Group>
                 {!name && <Form.Group controlId="formFileMultiple" className="mb-3">
-                    <Form.Label>Upload photos of your service!</Form.Label>
+                    <Form.Label style={{color: '#fff'}}>Upload photos of your service!</Form.Label>
                     <Form.Control ref={images} type="file" multiple required />
                 </Form.Group>}
-                <Button type="submit">Submit</Button>
+                <Button bsPrefix="uw-yellow" type="submit">Submit</Button>
             </Form>
         </div>
     )

@@ -60,7 +60,7 @@ export default function MapContainer() {
 
       <Container style={{ height: "100vh" }} fluid container="container-fluid" >
         <Row>
-          <Col sm={2}>
+          <Col sm={2} style={{overflow: "scroll", height: "100vh"}}>
             <Sidebar centerMap={setCenterLocation} searchVal={searchVal} setSearchVal={setSearchVal} />
           </Col>
 
@@ -132,7 +132,7 @@ function MapPin({ title, service, showingCard, setCurrentPinShowing }) {
       closeModal={() => setCurrentPinShowing(null)}
     ></PreviewList> : null}
 
-    <h5 className="text-above-map-item" onClick={(e) => {handleClick(e)}} >{service.title}</h5>
+    <h5 className="text-above-map-item uw-yellow" style={{backgroundColor: '#F9D54F', color: '#000'}} onClick={(e) => {handleClick(e)}} >{service.title}</h5>
     <div class='pin' onClick={(e) => {handleClick(e)}}></div>
 
     {/* <Button variant="light">{title}</Button> */}

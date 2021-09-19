@@ -62,10 +62,12 @@ export default function Profile() {
 				{!inEditMode ?
 
 					<div className="mt-5 mx-5">
-						<Button className="float-end mr-5" onClick={() => { setInEditMode(true) }}> Update Profile Info</Button>
 						<Container className="text-center">
-							<h2 class="fs-1 mb-3"> Welcome{` ${currentUser.displayName} `}!</h2>
-							<h2> Your Services </h2>
+							<div className="d-flex justify-content-end">
+							<Button bsPrefix="uw-yellow" className="float-end mr-5" onClick={() => { setInEditMode(true) }}> Update Profile Info</Button>
+							</div>
+							<h2 class="fs-1 my-3"> Welcome{` ${currentUser.displayName} `}!</h2>
+							<h4> Your Services </h4>
 							 <Row>
           					{services && services.map((service => <Col sm={2}><IndividualProfileServiceListing service={service} /></Col>))}
 							</Row>
@@ -76,7 +78,7 @@ export default function Profile() {
 						{!currentUser.displayName && <h2> Welcome to {APP_NAME}</h2>}
 						{!currentUser.displayName ? <p>Please enter your name:</p> : <h1>Please enter your new name!</h1>}
 						<input type="text" value={nameInput} onChange={(e) => setNameInput(e.target.value)} />
-						<Button onClick={() => updateNameInFirebase(nameInput)}> Done</Button>
+						<Button bsPrefix="uw-yellow" onClick={() => updateNameInFirebase(nameInput)}> Done</Button>
 					</div>}
 			</>
 		)
@@ -98,7 +100,7 @@ function IndividualProfileServiceListing({ service }) {
 				<Card.Text>
 					{service.description}
 				</Card.Text>
-				<Button onClick={handleShow}>Edit Service</Button>
+				<Button bsPrefix="uw-yellow" onClick={handleShow}>Edit Service</Button>
 			</Card.Body>
 		</Card>
 
