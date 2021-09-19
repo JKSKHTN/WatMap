@@ -106,7 +106,7 @@ function IndividualProfileServiceListing({ service }) {
 		<Modal.Header closeButton><Modal.Title>Editing {service.title}</Modal.Title></Modal.Header>
 		<Modal.Dialog>
 			<Modal.Body>
-				<ListServiceForm />
+				<ListServiceForm closeModal={handleClose} name={service.title} description={service.description} />
 			</Modal.Body>
 		</Modal.Dialog>
 		</Modal>

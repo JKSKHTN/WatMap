@@ -9,7 +9,7 @@ import { useAuth } from "../contexts/AuthContext.js";
 import { navigate } from "@reach/router"
 
 
-export default function ListServiceForm({location, closeModal}) {
+export default function ListServiceForm({location, closeModal, name, description}) {
     const serviceName = useRef();
     const serviceDescription = useRef();
     const images = useRef();
@@ -28,6 +28,20 @@ export default function ListServiceForm({location, closeModal}) {
         e.preventDefault();
         console.log(images)
         const urls = []
+        if (serviceRef.doc(ID).exists) {
+            console.log("hello")
+            serviceRef.doc(ID).update({
+                title: serviceName.current.value,
+                description: serviceDescription.current.value,
+            }).then(() => {
+                setLoading(true);
+                window.location.reload();
+                // serviceRef.doc(ID).update({
+                //     photosRef: urls
+                // })
+                
+            })
+        } else {
         serviceRef.doc(ID).set({
             title: serviceName.current.value,
             description: serviceDescription.current.value,
@@ -50,7 +64,7 @@ export default function ListServiceForm({location, closeModal}) {
                 // })
                 }
             }
-
+        
 
         }).then(() => {
             setLoading(true);
@@ -60,6 +74,7 @@ export default function ListServiceForm({location, closeModal}) {
             // })
             
         })
+    }
     }
 
     const handleTitle = (e) => {
@@ -75,7 +90,7 @@ export default function ListServiceForm({location, closeModal}) {
         <div className="mt-1 mx-3">
             <Form onSubmit={handleService}>
             <Form.Group id="ServiceName" className="mb-3 form-floating">
-                <Form.Control onChange={handleTitle} type="text" ref={serviceName} className="form-control" placeholder="Service Name" id="InputServiceName" aria-describedby="service name" required/>
+                <Form.Control onChange={handleTitle} type="text" ref={serviceName} className="form-control" placeholder="Service Name" id="InputServiceName" aria-describedby="service name" required defaultValue={name ? name : ""}/>
                 <Form.Label for="InputServiceName" className="form-label floatingInput">
                   Service Name
                 </Form.Label>
@@ -84,15 +99,15 @@ export default function ListServiceForm({location, closeModal}) {
                 <Form.Control as="textarea"
                   style={{
                     height: "200px",
-                  }} type="text" ref={serviceDescription} className="form-control" placeholder="Service Description" id="InputServiceDescription" aria-describedby="service description" required/>
+                  }} type="text" ref={serviceDescription} className="form-control" placeholder="Service Description" id="InputServiceDescription" aria-describedby="service description" required defaultValue={description ? description : ""}/>
                 <Form.Label for="InputServiceDescription" className="form-label floatingInput">
                   Service Description
                 </Form.Label>
               </Form.Group>
-            <Form.Group controlId="formFileMultiple" className="mb-3">
+            {name === "" && <Form.Group controlId="formFileMultiple" className="mb-3">
                 <Form.Label>Upload photos of your service!</Form.Label>
                 <Form.Control ref={images} type="file" multiple required/>
-            </Form.Group>
+            </Form.Group>}
             <Button type="submit">Submit</Button>
             </Form>
         </div>

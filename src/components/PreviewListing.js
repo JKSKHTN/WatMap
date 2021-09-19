@@ -3,7 +3,7 @@ import { Carousel, Image, Spinner, Card, Button, CloseButton } from "react-boots
 import firebase from "firebase/app";
 import { useAuth } from "../contexts/AuthContext"
 
-export default function PreviewList({ id }) {
+export default function PreviewList({ id , closeModal}) {
   const listingRef = firebase.firestore().collection("listings")
   const [info, setInfo] = useState()
   const [docid, setDocid] = useState()
@@ -57,10 +57,10 @@ export default function PreviewList({ id }) {
 
   return (
     <>
-      <Card style={{ width: "500px", zIndex: 999999 }} >
+      <Card style={{ width: "500px", zIndex: 999999 }} onClick={(e) => {e.stopPropagation()}} >
 
         <Card.Header>
-          <CloseButton />
+          <CloseButton onClick={(e) => {e.stopPropagation(); closeModal()}} />
         </Card.Header>
 
         <Card.Body>

@@ -115,17 +115,22 @@ function CenterMap(location) {
 
 
 function MapPin({ title, service, showingCard, setCurrentPinShowing }) {
-  console.log("IS SHOWING", showingCard);
+  // console.log("IS SHOWING", showingCard);
+
+  function handleClick(e) {
+    setCurrentPinShowing(service.id);
+
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
   return (<div style={{ style: "z-index: 1000" }}>
-    {showingCard ? <PreviewList id={service.id}></PreviewList> : null}
+    {showingCard ? <PreviewList id={service.id}
+      closeModal={() => setCurrentPinShowing(null)}
+    ></PreviewList> : null}
 
-    <h5 className="text-above-map-item">{service.title}</h5>
-    <div class='pin' onClick={(e) => {
-      setCurrentPinShowing(service.id);
-
-      e.preventDefault();
-      e.stopPropagation();
-    }}></div>
+    <h5 className="text-above-map-item" onClick={(e) => {handleClick(e)}} >{service.title}</h5>
+    <div class='pin' onClick={(e) => {handleClick(e)}}></div>
 
     {/* <Button variant="light">{title}</Button> */}
   </div>);
